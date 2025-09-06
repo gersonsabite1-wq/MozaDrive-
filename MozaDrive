@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MozaDrive - Aluguer de Viaturas em Moçambique</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Variáveis de cores */
+        :root {
+            --azul-escuro: #0a2463;
+            --azul-medio: #1e40af;
+            --branco: #ffffff;
+            --dourado: #d4af37;
+            --cinza-claro: #f3f4f6;
+            --cinza-escuro: #4b5563;
+            --verde: #25D366;
+        }
+        
+        /* Reset e estilos base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--branco);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--dourado);
+            color: var(--azul-escuro);
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background: #c19b2e;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--dourado);
+            color: var(--dourado);
+        }
+        
+        .btn-outline:hover {
+            background: var(--dourado);
+            color: var(--azul-escuro);
+        }
+        
+        .btn-whatsapp {
+            background: var(--verde);
+            color: white;
+        }
+        
+        .btn-whatsapp:hover {
+            background: #128C7E;
+            color: white;
+        }
+        
+        section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--azul-escuro);
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: var(--dourado);
+            margin: 15px auto;
+        }
+        
+        /* Header */
+        header {
+            background: var(--azul-escuro);
+            color: var(--branco);
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 40px;
+        }
+        
+        .logo-text {
+            font-size: 24px;
+            font-weight: bold;
+            margin-left: 10px;
+            color: var(--dourado);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            color: var(--branco);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--dourado);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--branco);
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(10, 36, 99, 0.8), rgba(10, 36, 99, 0.8)), url('https://images.unsplash.com/photo-1549399542-7e82138d43aa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--branco);
+            padding: 150px 0 100px;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        /* Sobre Nós */
+        .about {
+            background: var(--cinza-claro);
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+        
+        .about-text h3 {
+            color: var(--azul-escuro);
+            margin-bottom: 20px;
+        }
+        
+        .about-features {
+            margin-top: 30px;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        
+        .feature-icon {
+            color: var(--dourado);
+            font-size: 24px;
+            margin-right: 15px;
+            margin-top: 5px;
+        }
+        
+        /* Serviços */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            background: var(--branco);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .service-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .service-content {
+            padding: 25px;
+        }
+        
+        .service-content h3 {
+            color: var(--azul-escuro);
+            margin-bottom: 15px;
+        }
+        
+        /* Reservas */
+        .reservation {
+            background: var(--cinza-claro);
+        }
+        
+        .reservation-form {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--branco);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--azul-escuro);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .payment-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .payment-option {
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .payment-option:hover, .payment-option.selected {
+            border-color: var(--dourado);
+            background: rgba(212, 175, 55, 0.1);
+        }
+        
+        .payment-option img {
+            max-width: 60px;
+            max-height: 40px;
+            margin-bottom: 10px;
+        }
+        
+        /* Contactos */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .contact-icon {
+            color: var(--dourado);
+            font-size: 24px;
+            margin-right: 15px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--azul-escuro);
+            color: var(--branco);
+            border-radius: 50%;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background: var(--dourado);
+            color: var(--azul-escuro);
+            transform: translateY(-3px);
+        }
+        
+        .map-container {
+            height: 400px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--azul-escuro);
+            color: var(--branco);
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--dourado);
+            margin-bottom: 20px;
+        }
+        
+        .footer-links h4 {
+            color: var(--dourado);
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: var(--branco);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--dourado);
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1001;
+            overflow-y: auto;
+        }
+        
+        .modal-content {
+            background: var(--branco);
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 800px;
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--cinza-escuro);
+        }
+        
+        /* Comprovativo */
+        .receipt {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .receipt-header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--dourado);
+            padding-bottom: 20px;
+        }
+        
+        .receipt-details {
+            margin-bottom: 30px;
+        }
+        
+        .receipt-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed #ddd;
+        }
+        
+        .receipt-total {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            font-size: 18px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid var(--dourado);
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        /* Responsividade */
+        @media (max-width: 992px) {
+            .about-content,
+            .contact-grid,
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: var(--azul-escuro);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-links li {
+                margin: 15px 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .payment-options {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-text">MozaDrive</div>
+            </div>
+            
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <ul class="nav-links">
+                <li><a href="#home">Início</a></li>
+                <li><a href="#about">Sobre Nós</a></li>
+                <li><a href="#services">Serviços</a></li>
+                <li><a href="#reservation">Reservas</a></li>
+                <li><a href="#contact">Contactos</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>MozaDrive – A sua mobilidade em movimento</h1>
+            <p>Aluguer de viaturas de qualidade para todas as suas necessidades em Moçambique</p>
+            <a href="#reservation" class="btn">Reservar Agora</a>
+        </div>
+    </section>
+
+    <!-- Sobre Nós -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2 class="section-title">Sobre Nós</h2>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>A sua parceira de confiança em mobilidade</h3>
+                    <p>A MozaDrive nasceu da necessidade de fornecer serviços de aluguer de viaturas de qualidade em Moçambique. Com anos de experiência no mercado, tornámo-nos referência no sector de mobilidade.</p>
+                    
+                    <div class="about-features">
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-bullseye"></i></div>
+                            <div>
+                                <h4>Missão</h4>
+                                <p>Facilitar a mobilidade em Moçambique com confiança e segurança, oferecendo soluções de transporte adaptadas às necessidades dos nossos clientes.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-gem"></i></div>
+                            <div>
+                                <h4>Valores</h4>
+                                <p>Confiança, segurança e rapiedade são os pilares que orientam todos os nossos serviços e interações com os clientes.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Frota MozaDrive" style="width: 100%; border-radius: 10px;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Serviços -->
+    <section class="services" id="services">
+        <div class="container">
+            <h2 class="section-title">Nossos Serviços</h2>
+            
+            <div class="services-grid">
+                <!-- Aluguer de Carros -->
+                <div class="service-card" onclick="openModal('modal-carros')">
+                    <div class="service-img" style="background-image: url('https://images.unsplash.com/photo-1542362567-b07e54358753?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+                    <div class="service-content">
+                        <h3>Aluguer de Carros</h3>
+                        <p>Opções diárias, semanais ou mensais com uma frota variada de sedans, SUVs e viaturas de luxo.</p>
+                        <a href="#" class="btn btn-outline">Saber mais</a>
+                    </div>
+                </div>
+                
+                <!-- Transfer Aeroporto -->
+                <div class="service-card" onclick="openModal('modal-aeroporto')">
+                    <div class="service-img" style="background-image: url('https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+                    <div class="service-content">
+                        <h3>Transfer Aeroporto</h3>
+                        <p>Serviço 24/7 com motoristas profissionais e preços fixos por rota.</p>
+                        <a href="#" class="btn btn-outline">Saber mais</a>
+                    </div>
+                </div>
+                
+                <!-- Carro com Motorista -->
+                <div class="service-card" onclick="openModal('modal-motorista')">
+                    <div class="service-img" style="background-image: url('https://images.unsplash.com/photo-1502872362444-ef2a3b13032b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+                    <div class="service-content">
+                        <h3>Carro com Motorista</h3>
+                        <p>Motoristas experientes para executivos, eventos ou turismo com planos flexíveis.</p>
+                        <a href="#" class="btn btn-outline">Saber mais</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reservas -->
+    <section class="reservation" id="reservation">
+        <div class="container">
+            <h2 class="section-title">Reserva Online</h2>
+            
+            <div class="reservation-form">
+                <form id="booking-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Nome Completo</label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">Telefone</label>
+                            <input type="tel" id="phone" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="service">Serviço</label>
+                            <select id="service" class="form-control" required>
+                                <option value="">Selecione um serviço</option>
+                                <option value="aluguer">Aluguer de Carros</option>
+                                <option value="transfer">Transfer Aeroporto</option>
+                                <option value="motorista">Carro com Motorista</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="car-type">Tipo de Viatura</label>
+                            <select id="car-type" class="form-control" required>
+                                <option value="">Selecione o tipo de viatura</option>
+                                <option value="sedan">Sedan</option>
+                                <option value="suv">SUV</option>
+                                <option value="luxo">Viatura de Luxo</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Método de Pagamento</label>
+                            <div class="payment-options">
+                                <div class="payment-option" data-method="mpesa" onclick="selectPayment(this)">
+                                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDYwIDQwIj48cmVjdCB3aWR0aD0iNjAiIGhlaWdodD0iNDAiIGZpbGw9IiIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utd2lkdGg9IjIiLz48dGV4dCB4PSIzMCIgeT0iMjUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxMCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+TVA8L3RleHQ+PHRleHQgeD0iMzAiIHk9IjM1IiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iOCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+RVNBPC90ZXh0Pjwvc3ZnPg==" alt="Mpesa">
+                                    <div>Mpesa</div>
+                                </div>
+                                <div class="payment-option" data-method="emola" onclick="selectPayment(this)">
+                                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDYwIDQwIj48cmVjdCB3aWR0aD0iNjAiIGhlaWdodD0iNDAiIGZpbGw9IiNlNjAwMDAiIHJ4PSI1Ii8+PHRleHQgeD0iMzAiIHk9IjI1IiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTIiIGZpbGw9IiNmZmYiIHRleHQtYW5jaG9yPSJtaWRkbGUiPmU8dHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxNnB4O2ZvbnQtd2VpZ2h0OmJvbGQ7Ij5NPC90c3Bhbj5vbGE8L3RleHQ+PC9zdmc+" alt="eMola">
+                                    <div>eMola</div>
+                                </div>
+                                <div class="payment-option" data-method="visa" onclick="selectPayment(this)">
+                                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDYwIDQwIj48cmVjdCB3aWR0aD0iNjAiIGhlaWdodD0iNDAiIGZpbGw9IiMxYTE1NTEiIHJ4PSI1Ii8+PHRleHQgeD0iMzAiIHk9IjI1IiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IiNmZmYiIHRleHQtYW5jaG9yPSJtaWRkbGUiPlZJU0E8L3RleHQ+PC9zdmc+" alt="Visa">
+                                    <div>Visa</div>
+                                </div>
+                                <div class="payment-option" data-method="mastercard" onclick="selectPayment(this)">
+                                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDYwIDQwIj48cmVjdCB3aWR0aD0iNjAiIGhlaWdodD0iNDAiIGZpbGw9IiMjMDAwMDAiIHJ4PSI1Ii8+PHRleHQgeD0iMzAiIHk9IjI1IiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiNmZmYiIHRleHQtYW5jaG9yPSJtaWRkbGUiPk1BU1RFUkNBUkQ8L3RleHQ+PC9zdmc+" alt="Mastercard">
+                                    <div>Mastercard</div>
+                                </div>
+                            </div>
+                            <input type="hidden" id="payment-method" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="start-date">Data de Início</label>
+                            <input type="date" id="start-date" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="end-date">Data de Fim</label>
+                            <input type="date" id="end-date" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Mensagem Adicional (Opcional)</label>
+                        <textarea id="message" class="form-control" rows="4"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn">Confirmar Reserva</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contactos -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Contactos</h2>
+            
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                        <div>
+                            <h3>Telefone</h3>
+                            <p>+258 850 667 970</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fab fa-whatsapp"></i></div>
+                        <div>
+                            <h3>WhatsApp</h3>
+                            <p>+258 876 667 970</p>
+                            <a href="https://wa.me/258876667970" class="btn btn-whatsapp" style="margin-top: 10px;">
+                                <i class="fab fa-whatsapp"></i> Enviar Mensagem
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                        <div>
+                            <h3>Email</h3>
+                            <p>Mozadrive.Lda@gmail.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div>
+                            <h3>Localização</h3>
+                            <p>Av. 25 de Setembro, nº 123<br>Maputo, Moçambique</p>
+                        </div>
+                    </div>
+                    
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://instagram.com/mozadrive" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://wa.me/258876667970"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="map-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3586.366996324981!2d32.57692931502901!3d-25.968971683518247!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1ee69bf5bb5a5c61%3A0x5fb1b26981e1ef0e!2sAv.%2025%20de%20Setembro%2C%20Maputo%2C%20Mozambique!5e0!3m2!1sen!2s!4v1651234567890!5m2!1sen!2s" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">MozaDrive</div>
+                    <p>Fornecendo soluções de mobilidade de confiança em Moçambique desde 2015.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Links Rápidos</h4>
+                    <ul>
+                        <li><a href="#home">Início</a></li>
+                        <li><a href="#about">Sobre Nós</a></li>
+                        <li><a href="#services">Serviços</a></li>
+                        <li><a href="#reservation">Reservas</a></li>
+                        <li><a href="#contact">Contactos</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Serviços</h4>
+                    <ul>
+                        <li><a href="#">Aluguer de Carros</a></li>
+                        <li><a href="#">Transfer Aeroporto</a></li>
+                        <li><a href="#">Carro com Motorista</a></li>
+                        <li><a href="#">Frota</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Suporte</h4>
+                    <ul>
+                        <li><a href="#">Perguntas Frequentes</a></li>
+                        <li><a href="#">Política de Privacidade</a></li>
+                        <li><a href="#">Termos e Condições</a></li>
+                        <li><a href="#">Apoio ao Cliente</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 MozaDrive. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal para Serviços -->
+    <div id="modal-carros" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('modal-carros')">&times;</span>
+            <h2>Aluguer de Carros</h2>
+            <p>Oferecemos uma variedade de opções de aluguer para atender às suas necessidades:</p>
+            
+            <h3>Opções de Duração</h3>
+            <ul>
+                <li>Diária - Ideal para deslocações curtas</li>
+                <li>Semanal - Perfeito para férias ou viagens de negócios</li>
+                <li>Mensal - Excelente para projectos de longa duração</li>
+            </ul>
+            
+            <h3>Nossa Frota</h3>
+            <ul>
+                <li>Sedans - Conforto e economia para o dia a dia</li>
+                <li>SUVs - Espaçosas e ideais para família ou terrenos difíceis</li>
+                <li>Viaturas de Luxo - Para ocasiões especiais</li>
+            </ul>
+            
+            <h3>Extras Disponíveis</h3>
+            <ul>
+                <li>Sistema GPS para navegação</li>
+                <li>Seguro completo</li>
+                <li>Cadeira de bebé</li>
+                <li>Condutor adicional</li>
+            </ul>
+            
+            <a href="#reservation" class="btn" onclick="closeModal('modal-carros')">Reservar Agora</a>
+        </div>
+    </div>
+    
+    <div id="modal-aeroporto" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('modal-aeroporto')">&times;</span>
+            <h2>Transfer Aeroporto</h2>
+            <p>Chegue ao seu destino com conforto e pontualidade com o nosso serviço de transfer do aeroporto.</p>
+            
+            <h3>Vantagens do Nosso Serviço</h3>
+            <ul>
+                <li>Serviço disponível 24 horas por dia, 7 dias por semana</li>
+                <li>Motoristas profissionais e corteses</li>
+                <li>Preços fixos por rota, sem surpresas</li>
+                <li>Monitorização de voos para atrasos ou adiantamentos</li>
+                <li>Veículos confortáveis e com ar condicionado</li>
+            </ul>
+            
+            <h3>Principais Rotas</h3>
+            <ul>
+                <li>Aeroporto Internacional de Maputo → Centro da cidade</li>
+                <li>Aeroporto Internacional de Maputo → Matola</li>
+                <li>Aeroporto Internacional de Maputo → Costa do Sol</li>
+                <li>Serviços personalizados para outros destinos</li>
+            </ul>
+            
+            <a href="#reservation" class="btn" onclick="closeModal('modal-aeroporto')">Reservar Agora</a>
+        </div>
+    </div>
+    
+    <div id="modal-motorista" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('modal-motorista')">&times;</span>
+            <h2>Carro com Motorista</h2>
+            <p>Desfrute da comodidade de ter um motorista profissional ao seu dispor para todas as suas deslocações.</p>
+            
+            <h3>Para Quem é Este Serviço</h3>
+            <ul>
+                <li>Executivos em viagem de negócios</li>
+                <li>Turistas que desejam explorar Moçambique</li>
+                <li>Casamentos e eventos especiais</li>
+                <li>Pessoas que preferem não conduzir</li>
+            </ul>
+            
+            <h3>Nossos Motoristas</h3>
+            <ul>
+                <li>Experientes e com conhecimento das rotas</li>
+                <li>Profissionais e discretos</li>
+                <li>Pontuais e confiáveis</li>
+                <li>Com formação em atendimento ao cliente</li>
+            </ul>
+            
+            <h3>Planos Disponíveis</h3>
+            <ul>
+                <li>Meio dia (até 4 horas)</li>
+                <li>Dia inteiro (até 8 horas)</li>
+                <li>Pacote semanal</li>
+                <li>Serviços personalizados</li>
+            </ul>
+            
+            <a href="#reservation" class="btn" onclick="closeModal('modal-motorista')">Reservar Agora</a>
+        </div>
+    </div>
+
+    <!-- Modal de Comprovativo -->
+    <div id="modal-receipt" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('modal-receipt')">&times;</span>
+            
+            <div class="receipt">
+                <div class="receipt-header">
+                    <h2>Comprovativo de Reserva</h2>
+                    <p>MozaDrive - Aluguer de Viaturas</p>
+                    <p>Nº da Reserva: <span id="receipt-number"></span></p>
+                    <p>Data: <span id="receipt-date"></span></p>
+                </div>
+                
+                <div class="receipt-details">
+                    <h3>Detalhes da Reserva</h3>
+                    <div class="receipt-item">
+                        <span>Cliente:</span>
+                        <span id="receipt-client"></span>
+                    </div>
+                    <div class="receipt-item">
+                        <span>Contacto:</span>
+                        <span id="receipt-contact"></span>
+                    </div>
+                    <div class="receipt-item">
+                        <span>Serviço:</span>
+                        <span id="receipt-service"></span>
+                    </div>
+                    <div class="receipt-item">
+                        <span>Viatura:</span>
+                        <span id="receipt-vehicle"></span>
+                    </div>
+                    <div class="receipt-item">
+                        <span>Período:</span>
+                        <span id="receipt-period"></span>
+                    </div>
+                    <div class="receipt-item">
+                        <span>Método de Pagamento:</span>
+                        <span id="receipt-payment"></span>
+                    </div>
+                </div>
+                
+                <div class="receipt-total">
+                    <span>Total a Pagar:</span>
+                    <span id="receipt-total">15.000,00 MZN</span>
+                </div>
+                
+                <div class="receipt-details">
+                    <h3>Instruções de Pagamento</h3>
+                    <p id="payment-instructions"></p>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="btn" onclick="printReceipt()">
+                        <i class="fas fa-print"></i> Imprimir Comprovativo
+                    </button>
+                    <a href="https://wa.me/258876667970" class="btn btn-whatsapp">
+                        <i class="fab fa-whatsapp"></i> Enviar por WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Menu mobile toggle
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+        
+        // Fechar menu ao clicar num link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function() {
+                document.querySelector('.nav-links').classList.remove('active');
+            });
+        });
+        
+        // Funções para modal
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Fechar modal ao clicar fora do conteúdo
+        window.addEventListener('click', function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        // Selecionar método de pagamento
+        function selectPayment(element) {
+            // Remover seleção anterior
+            document.querySelectorAll('.payment-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Adicionar seleção atual
+            element.classList.add('selected');
+            document.getElementById('payment-method').value = element.getAttribute('data-method');
+        }
+        
+        // Form submission
+        document.getElementById('booking-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validar método de pagamento
+            const paymentMethod = document.getElementById('payment-method').value;
+            if (!paymentMethod) {
+                alert('Por favor, selecione um método de pagamento.');
+                return;
+            }
+            
+            // Gerar comprovativo
+            generateReceipt();
+            
+            // Abrir modal de comprovativo
+            openModal('modal-receipt');
+        });
+        
+        // Gerar comprovativo
+        function generateReceipt() {
+            // Gerar número de reserva aleatório
+            const reservationNumber = 'MD' + Math.floor(100000 + Math.random() * 900000);
+            document.getElementById('receipt-number').textContent = reservationNumber;
+            
+            // Data atual
+            const now = new Date();
+            document.getElementById('receipt-date').textContent = now.toLocaleDateString('pt-MZ');
+            
+            // Preencher dados do cliente
+            document.getElementById('receipt-client').textContent = document.getElementById('name').value;
+            document.getElementById('receipt-contact').textContent = document.getElementById('phone').value;
+            
+            // Preencher dados do serviço
+            const serviceSelect = document.getElementById('service');
+            document.getElementById('receipt-service').textContent = serviceSelect.options[serviceSelect.selectedIndex].text;
+            
+            const vehicleSelect = document.getElementById('car-type');
+            document.getElementById('receipt-vehicle').textContent = vehicleSelect.options[vehicleSelect.selectedIndex].text;
+            
+            // Período de reserva
+            const startDate = document.getElementById('start-date').value;
+            const endDate = document.getElementById('end-date').value;
+            document.getElementById('receipt-period').textContent = `${formatDate(startDate)} a ${formatDate(endDate)}`;
+            
+            // Método de pagamento
+            const paymentMethod = document.getElementById('payment-method').value;
+            document.getElementById('receipt-payment').textContent = getPaymentMethodName(paymentMethod);
+            
+            // Instruções de pagamento
+            document.getElementById('payment-instructions').innerHTML = getPaymentInstructions(paymentMethod);
+        }
+        
+        // Formatar data
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('pt-MZ');
+        }
+        
+        // Obter nome do método de pagamento
+        function getPaymentMethodName(method) {
+            switch(method) {
+                case 'mpesa': return 'Mpesa';
+                case 'emola': return 'eMola';
+                case 'visa': return 'Cartão Visa';
+                case 'mastercard': return 'Cartão Mastercard';
+                default: return method;
+            }
+        }
+        
+        // Obter instruções de pagamento
+        function getPaymentInstructions(method) {
+            switch(method) {
+                case 'mpesa':
+                    return `
+                        <ol>
+                            <li>Abra a aplicação Mpesa no seu telemóvel</li>
+                            <li>Selecione "Pagamentos"</li>
+                            <li>Digite o número: <strong>850 667 970</strong></li>
+                            <li>Introduza o valor: <strong>15.000,00 MZN</strong></li>
+                            <li>Adicione a referência: <strong>${document.getElementById('receipt-number').textContent}</strong></li>
+                            <li>Confirme a transação</li>
+                        </ol>
+                        <p>Envie o comprovativo para o WhatsApp: <strong>876 667 970</strong></p>
+                    `;
+                case 'emola':
+                    return `
+                        <ol>
+                            <li>Abra a aplicação eMola no seu telemóvel</li>
+                            <li>Selecione "Transferir"</li>
+                            <li>Digite o número: <strong>850 667 970</strong></li>
+                            <li>Introduza o valor: <strong>15.000,00 MZN</strong></li>
+                            <li>Adicione a referência: <strong>${document.getElementById('receipt-number').textContent}</strong></li>
+                            <li>Confirme a transação</li>
+                        </ol>
+                        <p>Envie o comprovativo para o WhatsApp: <strong>876 667 970</strong></p>
+                    `;
+                case 'visa':
+                case 'mastercard':
+                    return `
+                        <p>Iremos contactá-lo dentro de 24 horas para processar o seu pagamento com cartão de crédito/débito.</p>
+                        <p>Alternativamente, pode contactar-nos directamente pelo WhatsApp: <strong>876 667 970</strong></p>
+                    `;
+                default:
+                    return `<p>Contacte-nos para instruções de pagamento: <strong>850 667 970</strong></p>`;
+            }
+        }
+        
+        // Imprimir comprovativo
+        function printReceipt() {
+            const printContent = document.getElementById('modal-receipt').innerHTML;
+            const originalContent = document.body.innerHTML;
+            
+            document.body.innerHTML = printContent;
+            window.print();
+            document.body.innerHTML = originalContent;
+            
+            // Recarregar a página após impressão
+            location.reload();
+        }
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
